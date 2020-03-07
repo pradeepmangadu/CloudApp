@@ -22,7 +22,7 @@ import com.hr.ppmtool.services.CustomUserDetailsService;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true, jsr250Enabled = true, prePostEnabled = true)
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private JWTAuthenticationEntryPoint unauthorizedHandler;
@@ -59,7 +59,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.and().authorizeRequests()
 				.antMatchers("/", "/favicon.ico", "/**/*.png", "/**/*.jpg", "/**/*.gif", "/**/*.svg", "/**/*.html",
 						"/**/*.js", "/**/*.css")
-				.permitAll().antMatchers(SIGN_UP_URLS).permitAll().antMatchers(H2_URL).permitAll().anyRequest()
+				.permitAll().antMatchers(SIGN_UP_URLS, "/login").permitAll().antMatchers(H2_URL).permitAll()
+				.anyRequest().authenticated()
+
+				.and().authorizeRequests().antMatchers("/api/project/**", "/api/backlog/**", "/projectBoard/**",
+						"/login/**", "/dashboard", "/addProject")
 				.authenticated();
 
 		http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
