@@ -62,9 +62,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.permitAll().antMatchers(SIGN_UP_URLS, "/login").permitAll().antMatchers(H2_URL).permitAll()
 				.anyRequest().authenticated()
 
-				.and().authorizeRequests().antMatchers("/api/project/**", "/api/backlog/**", "/projectBoard/**",
-						"/login/**", "/dashboard", "/addProject")
-				.authenticated();
+			
 
 		http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
