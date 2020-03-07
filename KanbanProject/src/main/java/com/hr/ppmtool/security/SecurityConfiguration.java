@@ -60,9 +60,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/", "/favicon.ico", "/**/*.png", "/**/*.jpg", "/**/*.gif", "/**/*.svg", "/**/*.html",
 						"/**/*.js", "/**/*.css")
 				.permitAll().antMatchers(SIGN_UP_URLS, "/login").permitAll().antMatchers(H2_URL).permitAll()
-				.anyRequest().authenticated()
+				.anyRequest().authenticated;
 
-			
+				
 
 		http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
